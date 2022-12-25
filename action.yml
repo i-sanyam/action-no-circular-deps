@@ -32,7 +32,8 @@ runs:
     - name: Comment PR with reduced circular deps
       uses: thollander/actions-comment-pull-request@v2
       if: ${{ steps.nocirculardeps.outputs.isCircularDependencyCountReduced == 'true' && steps.nocirculardeps.outputs.isNewCircularDependencyIntroduced == 'false' }}
-      message: |
+      with:
+        message: |
           :round_pushpin: This PR reduces circular dependencies :infinity:. Make sure to update them in skipFile.
 
     - name: Comment PR

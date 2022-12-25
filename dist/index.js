@@ -2866,13 +2866,13 @@ __nccwpck_require__.r(__webpack_exports__);
 async function run() {
   console.log('Hello world!');
   try {
-    const baseFilePath = _actions_core__WEBPACK_IMPORTED_MODULE_0___default().getInput('baseFilePath');
+    const baseFilePath = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('baseFilePath');
     if (!baseFilePath) {
-      _actions_core__WEBPACK_IMPORTED_MODULE_0___default().info('baseFilePath not specified');
+      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('baseFilePath not specified');
     }
-    _actions_core__WEBPACK_IMPORTED_MODULE_0___default().info(`baseFilePath:: ${baseFilePath}`);
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`baseFilePath:: ${baseFilePath}`);
   } catch (error) {
-    _actions_core__WEBPACK_IMPORTED_MODULE_0___default().setFailed(error.message);
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);
   }
 }
 

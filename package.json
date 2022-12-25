@@ -12,6 +12,10 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "8.30.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.6.0",
+    "eslint-plugin-promise": "^6.1.1",
     "husky": "8.0.2"
   }
 }

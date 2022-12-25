@@ -18,3 +18,7 @@ outputs:
 runs:
   using: 'node12'
   main: 'action.js'
+
+branding:
+  icon: 'repeat'
+  color: 'red'

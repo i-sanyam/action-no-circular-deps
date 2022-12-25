@@ -15,15 +15,6 @@ runs:
       uses: actions/checkout@v3
       with:
         path: action-no-circular-deps
-        
-
-    # - name: 📥 npm install
-    #   uses: bahmutov/npm-install@v1.8.5
-
-    - name: npm install
-      run: |
-        npm ci
-      shell: bash
 
     - name: Detect Circular Dependencies
       id: nocirculardeps

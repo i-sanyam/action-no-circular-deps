@@ -22,7 +22,6 @@ inputs:
 
 runs:
   using: 'composite'
-  main: 'action.js'
   steps:
     - name: Detect Circular Dependencies
       run: node action.js

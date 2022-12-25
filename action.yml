@@ -7,6 +7,13 @@ inputs:
     description: 'file path containing .json file to skip dependencies'
     required: false
     default: ''
+  
+outputs:
+  newCircularDepsFilePath:
+    description: "file path of newly introduced circular dependencies"
+  branchCircularDepsFilePath:
+    description: "file path of circular dependencies in the current branch"
+  
 
 runs:
   using: 'node12'

@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import detectNewCircularDependencies from './validate-circular-deps';
+import detectNewCircularDependencies from './validate-circular-deps.js';
 
 async function run() {
   try {

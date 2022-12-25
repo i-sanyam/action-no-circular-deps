@@ -14,5 +14,14 @@ jobs:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v3
 
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 12
+          cache: 'npm'
+
+      - name: 📥 npm install
+        uses: bahmutov/npm-install@v1.8.5
+
       - name: ⎔ Run Action
         uses: ./

@@ -1,5 +1,5 @@
 name: 'No Circular Deps Action'
-description: 'Console Hello World!'
+description: 'Detect & Validate Circular Dependencies'
 author: 'Sanyam Aggarwal'
 
 inputs:

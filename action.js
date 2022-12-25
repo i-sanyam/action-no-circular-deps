@@ -13,10 +13,12 @@ async function run() {
     } else {
       core.info(`baseFilePath:: ${baseFilePath}`);
     }
+    const baseFilePathToUse = baseFilePath || './';
     const baseCircularDeps = [];
 
     const { newCircularDependencies, branchCircularDeps } = await detectNewCircularDependencies({
       baseCircularDependencies: baseCircularDeps,
+      path: baseFilePathToUse,
     });
     const newCircularDepsFilePath = await generateCircularDependenciesLogFile(newCircularDependencies, 'new')
       .catch((e) => {

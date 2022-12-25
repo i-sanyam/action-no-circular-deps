@@ -1,3 +1,5 @@
+import core from '@actions/core';
+
 async function run() {
   console.log('Hello world!');
   try {

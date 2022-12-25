@@ -6,11 +6,17 @@ inputs:
   baseFilePath:
     description: 'file path containing .json file to skip dependencies'
     required: false
-    default: ''
+    default: "$GITHUB_WORKSPACE"
 
 runs:
   using: 'composite'
   steps:
+    - name: ⬇️ Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: 📥 npm install
+      uses: bahmutov/npm-install@v1.8.5
+
     - name: Detect Circular Dependencies
       id: nocirculardeps
       run: node action.js

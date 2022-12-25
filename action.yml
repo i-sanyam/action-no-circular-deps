@@ -1,0 +1,7 @@
+name: 'No Circular Deps Action'
+description: 'Console Hello World!'
+author: 'Sanyam Aggarwal'
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

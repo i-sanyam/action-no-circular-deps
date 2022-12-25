@@ -23,5 +23,25 @@ jobs:
       - name: 📥 npm install
         uses: bahmutov/npm-install@v1.8.5
 
-      - name: ⎔ Run Action
+      - name: ⎔ Run Action No Circular Deps
+        id: nocirculardeps
         uses: ./
+    
+    outputs:
+      branchCircularDepsFile: ${{ steps.nocirculardeps.outputs.branchCircularDepsFilePath }}
+      newCircularDepsFile: ${{ steps.nocirculardeps.outputs.newCircularDepsFilePath }}
+
+  comment-output: 
+    needs: test
+
+    steps:
+      - name: Comment PR with branch circular deps file
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          filePath: ${{needs.test.outputs.branchCircularDepsFile}}
+      - name: Comment PR with new circular deps file
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          filePath: ${{needs.test.outputs.newCircularDepsFile}}
+
+    

@@ -23,6 +23,7 @@ runs:
     - name: npm install
       run: |
         npm ci
+      shell: bash
 
     - name: Detect Circular Dependencies
       id: nocirculardeps

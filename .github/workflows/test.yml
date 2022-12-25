@@ -26,28 +26,14 @@ jobs:
       - name: ⎔ Run Action No Circular Deps
         id: nocirculardeps
         uses: ./
-    
-    outputs:
-      branchCircularDepsFile: ${{ steps.nocirculardeps.outputs.branchCircularDepsFilePath }}
-      newCircularDepsFile: ${{ steps.nocirculardeps.outputs.newCircularDepsFilePath }}
-
-  comment-output: 
-    needs: test
-    runs-on: ubuntu-latest
-    name: Comment on PR Circular Deps Files
-      
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
       - name: Comment PR with branch circular deps file
         uses: thollander/actions-comment-pull-request@v2
         with:
-          filePath: ${{needs.test.outputs.branchCircularDepsFile}}
+          filePath: ${{ steps.nocirculardeps.outputs.branchCircularDepsFilePath }}
 
       - name: Comment PR with new circular deps file
         uses: thollander/actions-comment-pull-request@v2
         with:
-          filePath: ${{needs.test.outputs.newCircularDepsFile}}
-
+          filePath: ${{ steps.nocirculardeps.outputs.newCircularDepsFilePath }}
     

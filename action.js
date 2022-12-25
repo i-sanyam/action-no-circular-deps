@@ -33,11 +33,13 @@ async function run() {
 
     const isCircularDependencyCountReduced = branchCircularDeps.length < baseCircularDeps.length;
     const isNewCircularDependencyIntroduced = newCircularDependencies.length > 0;
+    const isCircularDependencyPresent = branchCircularDeps.length > 0;
 
     core.setOutput('newCircularDepsFilePath', newCircularDepsFilePath);
     core.setOutput('branchCircularDepsFilePath', branchCircularDepsFilePath);
     core.setOutput('isCircularDependencyCountReduced', isCircularDependencyCountReduced);
     core.setOutput('isNewCircularDependencyIntroduced', isNewCircularDependencyIntroduced);
+    core.setOutput('isCircularDependencyPresent', isCircularDependencyPresent);
 
     // success cases
     if (isCircularDependencyCountReduced && !isNewCircularDependencyIntroduced) {

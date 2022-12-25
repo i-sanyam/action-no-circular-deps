@@ -17,6 +17,9 @@ jobs:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Test Workspace #delete this
+        run: echo "GITHUB_WORKSPACE $GITHUB_WORKSPACE"
+
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:

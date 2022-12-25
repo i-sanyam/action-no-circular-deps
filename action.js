@@ -31,21 +31,24 @@ async function run() {
         logError(e && e.message);
       });
 
+    const isCircularDependencyCountReduced = branchCircularDeps.length < baseCircularDeps.length;
+    const isNewCircularDependencyIntroduced = newCircularDependencies.length > 0;
+
     core.setOutput('newCircularDepsFilePath', newCircularDepsFilePath);
     core.setOutput('branchCircularDepsFilePath', branchCircularDepsFilePath);
-
-    const isCircularDependencyCountReduced = branchCircularDeps.length < baseCircularDeps.length;
+    core.setOutput('isCircularDependencyCountReduced', isCircularDependencyCountReduced);
+    core.setOutput('isNewCircularDependencyIntroduced', isNewCircularDependencyIntroduced);
 
     // success cases
-    if (isCircularDependencyCountReduced && newCircularDependencies.length === 0) {
+    if (isCircularDependencyCountReduced && !isNewCircularDependencyIntroduced) {
       // circular dependency count is reduced and no new circular dependency introduced
       logInfo(CLI_COLOR.FgGreen, '\nGood Job!');
       logInfo(`  You reduced Circular Dependencies from ${baseCircularDeps.length} to ${branchCircularDeps.length}.`);
       logInfo(CLI_COLOR.Bright, CLI_COLOR.FgYellow, 'Please update circular dependencies in baseFilePath');
       return;
     }
-    if (newCircularDependencies.length === 0
-        && branchCircularDeps.length === baseCircularDeps.length) {
+
+    if (!isNewCircularDependencyIntroduced) {
       return;
     }
 
@@ -54,7 +57,7 @@ async function run() {
     if (branchCircularDeps.length > baseCircularDeps.length) {
       logError(CLI_COLOR.FgRed, `Expected ${baseCircularDeps.length} Circular Dependencies. Got ${branchCircularDeps.length}`);
     }
-    if (newCircularDependencies.length !== 0) {
+    if (isNewCircularDependencyIntroduced) {
       logError(CLI_COLOR.FgRed, `${newCircularDependencies.length} New circular dependencies detected.`);
     }
     core.setFailed('✖ Failed!');

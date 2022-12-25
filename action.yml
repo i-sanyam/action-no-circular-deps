@@ -12,39 +12,39 @@ runs:
   using: 'composite'
   steps:
     - name: Detect Circular Dependencies
+      id: nocirculardeps
       run: node action.js
       shell: bash
-      id: nocirculardeps
 
     - name: Comment PR
       uses: thollander/actions-comment-pull-request@v2
-      if: ${{ steps.nocirculardeps.outputs.isCircularDependencyPresent }}
+      if: ${{ steps.nocirculardeps.outputs.isCircularDependencyPresent == 'true' }}
       with:
         message: |
           :round_pushpin: Branch circular dependencies :infinity:. Details in next comment
 
     - name: Comment PR with branch circular deps file
       uses: thollander/actions-comment-pull-request@v2
-      if: ${{ steps.nocirculardeps.outputs.isCircularDependencyPresent }}
+      if: ${{ steps.nocirculardeps.outputs.isCircularDependencyPresent == 'true' }}
       with:
         filePath: ${{ steps.nocirculardeps.outputs.branchCircularDepsFilePath }}
 
     - name: Comment PR with reduced circular deps
       uses: thollander/actions-comment-pull-request@v2
-      if: ${{ steps.nocirculardeps.outputs.isCircularDependencyCountReduced && !steps.nocirculardeps.outputs.isNewCircularDependencyIntroduced }}
+      if: ${{ steps.nocirculardeps.outputs.isCircularDependencyCountReduced == 'true' && steps.nocirculardeps.outputs.isNewCircularDependencyIntroduced == 'false' }}
       message: |
           :round_pushpin: This PR reduces circular dependencies :infinity:. Make sure to update them in skipFile.
 
     - name: Comment PR
       uses: thollander/actions-comment-pull-request@v2
-      if: ${{ steps.nocirculardeps.outputs.isNewCircularDependencyIntroduced }}
+      if: ${{ steps.nocirculardeps.outputs.isNewCircularDependencyIntroduced == 'true' }}
       with:
         message: |
           :round_pushpin: Detected new circular dependencies :infinity:. Details in next comment
 
     - name: Comment PR with new circular deps file
       uses: thollander/actions-comment-pull-request@v2
-      if: ${{ steps.nocirculardeps.outputs.isNewCircularDependencyIntroduced }}
+      if: ${{ steps.nocirculardeps.outputs.isNewCircularDependencyIntroduced == 'true' }}
       with:
         filePath: ${{ steps.nocirculardeps.outputs.newCircularDepsFilePath }}
     

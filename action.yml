@@ -21,7 +21,7 @@ runs:
 
     - name: Detect Circular Dependencies
       id: nocirculardeps
-      run: node action.js
+      run: node "${{ github.action_path }}/action.js"
       shell: bash
 
     - name: Comment PR

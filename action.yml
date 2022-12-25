@@ -2,6 +2,12 @@ name: 'No Circular Deps Action'
 description: 'Console Hello World!'
 author: 'Sanyam Aggarwal'
 
+inputs:
+  baseFilePath:
+    description: 'file path containing .json file to skip dependencies'
+    required: false
+    default: ''
+
 runs:
   using: 'node12'
   main: 'dist/index.js'

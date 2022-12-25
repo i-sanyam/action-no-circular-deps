@@ -1,3 +1,4 @@
+import assert from 'assert';
 import childProcess from 'child_process';
 import lodash from 'lodash';
 import madge from 'madge';
@@ -41,23 +42,21 @@ const generateCircularDependenciesLogFile = async (circularDependencies, fileNam
   return fileToWrite;
 };
 
-const getCircularDependencies = async (path = './', options = {}) => {
-  const { log: createLogFile = false, fileName } = options;
+const getCircularDependencies = async (path) => {
   const result = await madge(path);
   const circularDependencies = result.circular();
-  if (createLogFile) {
-    await generateCircularDependenciesLogFile(circularDependencies, fileName);
-  }
   return circularDependencies;
 };
 
 const detectNewCircularDependencies = async (params) => {
   const {
     baseCircularDependencies: baseCircularDeps = [],
-    path = './',
-    log = false,
+    path,
   } = params;
-  const branchCircularDeps = await getCircularDependencies(path, { log });
+
+  assert(path, 'path is required');
+
+  const branchCircularDeps = await getCircularDependencies(path);
 
   if (branchCircularDeps.length === baseCircularDeps.length
     && isEqual(baseCircularDeps, branchCircularDeps)) {

@@ -1,4 +1,5 @@
 import * as core from '@actions/core';
+import detectNewCircularDependencies from './validate-circular-deps';
 
 async function run() {
   try {
@@ -8,8 +9,13 @@ async function run() {
     } else {
       core.info(`baseFilePath:: ${baseFilePath}`);
     }
+    await detectNewCircularDependencies({
+      baseCircularDependencies: [],
+    });
   } catch (error) {
     core.setFailed(error.message);
+    core.setFailed('✖ Failed!');
+    process.exitCode = 2;
   }
 }
 

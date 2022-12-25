@@ -7,17 +7,50 @@ inputs:
     description: 'file path containing .json file to skip dependencies'
     required: false
     default: ''
+
+  # node-version:
+  #   description: 'node version to run action'
+  #   required: true
+  #   default: 12
   
-outputs:
-  newCircularDepsFilePath:
-    description: "file path of newly introduced circular dependencies"
-  branchCircularDepsFilePath:
-    description: "file path of circular dependencies in the current branch"
+# outputs:
+#   newCircularDepsFilePath:
+#     description: "file path of newly introduced circular dependencies"
+#   branchCircularDepsFilePath:
+#     description: "file path of circular dependencies in the current branch"
   
 
 runs:
-  using: 'node12'
+  using: 'composite'
   main: 'action.js'
+  steps:
+    - name: Detect Circular Dependencies
+      run: node action.js
+      shell: bash
+      id: nocirculardeps
+
+    - name: Comment PR
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        message: |
+          :round_push_pin: Branch circular dependencies :infinity: in next comment
+
+    - name: Comment PR with branch circular deps file
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        filePath: ${{ steps.nocirculardeps.outputs.branchCircularDepsFilePath }}
+
+    - name: Comment PR
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        message: |
+          :round_push_pin: New circular dependencies :infinity: in next comment
+
+    - name: Comment PR with new circular deps file
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        filePath: ${{ steps.nocirculardeps.outputs.newCircularDepsFilePath }}
+    
 
 branding:
   icon: 'repeat'

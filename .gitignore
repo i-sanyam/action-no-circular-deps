@@ -131,3 +131,7 @@ dist
 
 #omit vscode files
 .vscode
+
+#omit log files
+circular-deps-logs/branchCircularDeps_*.json
+circular-deps-logs/newCircularDeps_*.json
